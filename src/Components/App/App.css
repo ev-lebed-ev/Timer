@@ -1,17 +1,20 @@
 @import "../../Assets/Fonts/Montserrat/Montserrat.css";
 
 body {
-  --font-size: 15px;
+  --main-color: rgb(22, 22, 29);
+  --opposite-color: rgb(225, 225, 225);
 }
 
 * {
+  background-color: var(--main-color);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: 500;
-  font-size: var(--font-size);
+  color: var(--opposite-color);
+  font-size: 5vmin;
 }
 
 .app {
