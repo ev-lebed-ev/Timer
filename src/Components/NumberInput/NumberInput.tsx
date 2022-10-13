@@ -18,7 +18,7 @@ const numberInputValueEnhancer: ValueEnhancer<number> = (value) => {
   }
 
   return number;
-}
+};
 
 const NumberInput = memo<NumberInputProps>((props) => (
   <Input {...props} valueEnhancer={numberInputValueEnhancer} />
