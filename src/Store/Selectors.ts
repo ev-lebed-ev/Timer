@@ -1,8 +1,15 @@
 import { Selector } from "react-redux";
 import { createPropertySelector } from "./Utils/CreatePropertySelector";
-import { State } from "./State";
+import { Preset, State, Status } from "./State";
+import { createSelector } from "reselect";
+import { createSimpleSelector } from "./Utils/CreateSimpleSelector";
+import { isNil } from "../Utils/IsNil";
+import { isString } from "../Utils/IsString";
+import { isPresetValid } from "./Utils/IsPresetValid";
 
-const stateSelector: Selector<State, State> = (state) => state;
+type AppSelector<R> = Selector<State, R>;
+
+const stateSelector: AppSelector<State> = (state) => state;
 
 const workSelector = createPropertySelector(
   stateSelector,
@@ -14,9 +21,61 @@ const restSelector = createPropertySelector(
   ["rest"],
 );
 
-const countSelector = createPropertySelector(
+const namesSelector = createPropertySelector(
   stateSelector,
-  ["count"],
+  ["names"],
 );
 
-export { workSelector, restSelector, countSelector };
+const nameSelector = (index: number) =>
+  createPropertySelector(
+    namesSelector,
+    [index],
+  );
+
+const countSelector = createPropertySelector(
+  namesSelector,
+  ["length"],
+);
+
+const presetSelector = createSelector(
+  workSelector,
+  restSelector,
+  namesSelector,
+  (work, rest, names): Preset => ({
+    work,
+    rest,
+    names,
+  }),
+);
+
+const statusSelector = createPropertySelector(
+  stateSelector,
+  ["status"],
+);
+
+const specificStatusSelectorFactory = (status: Status) =>
+  createSimpleSelector(
+    statusSelector,
+    (currentStatus) => currentStatus === status,
+  );
+
+const isCreatingSelector = specificStatusSelectorFactory("Creating");
+
+const isWaitingSelector = specificStatusSelectorFactory("Waiting");
+
+const isPresetValidSelector = createSelector(
+  presetSelector,
+  isPresetValid,
+);
+
+export type { AppSelector };
+export {
+  workSelector,
+  restSelector,
+  countSelector,
+  presetSelector,
+  namesSelector,
+  nameSelector,
+  statusSelector,
+  isPresetValidSelector,
+};

@@ -4,7 +4,7 @@ import { NumberInput } from "../NumberInput/NumberInput";
 import { workUpdatedAction } from "../../Store/Actions";
 
 const WorkInput = memo(() => (
-  <NumberInput valueSelector={workSelector} updateValueActionCreator={workUpdatedAction} />
+  <NumberInput selector={workSelector} action={workUpdatedAction} />
 ));
 WorkInput.displayName = "WorkInput";
 

@@ -1,9 +1,8 @@
-import { State } from "../State";
-import { ActionCreator, Reducer } from "./CreateRootReducer";
+import { ActionCreator, AppReducer } from "./CreateRootReducer";
 
 const actionTypeSymbol = Symbol("actionType");
 
-const createReducer = <A extends ActionCreator>(actionCreators: Array<A>, reducer: Reducer<State, A>): Reducer<State, A> => {
+const createReducer = <A extends ActionCreator>(actionCreators: Array<A>, reducer: AppReducer<A>): AppReducer<A> => {
   reducer[actionTypeSymbol] = actionCreators.map((actionCreator)=> actionCreator().type);
 
   return reducer;

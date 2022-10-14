@@ -1,28 +1,33 @@
 import { memo } from "react";
-import { isEmpty } from "../../Utils/IsEmpty";
-import { Input, InputProps, ValueEnhancer } from "../Input/Input";
+import { DecreaseNumberButton, IncreaseNumberButton } from "../NumberControlButton/NumberControlButton";
+import { Sign } from "../../Utils/Sign";
+import { useSelector } from "react-redux";
+import { ActionCreator } from "../../Store/Utils/CreateRootReducer";
+import { AppSelector } from "../../Store/Selectors";
 
-type NumberInputProps = Omit<InputProps<number>, "valueEnhancer">;
+type UpdateAction<S extends Sign> = ActionCreator<[S], S>;
 
-const maxNumber = 10_000_000;
-
-const numberInputValueEnhancer: ValueEnhancer<number> = (value) => {
-  if (isEmpty(value)) {
-    return 0;
-  }
-
-  const number = Number(value);
-
-  if (number > maxNumber) {
-    return maxNumber;
-  }
-
-  return number;
+type NumberInputProps = {
+  selector: AppSelector<number>;
+  action: ActionCreator<[Sign], Sign>;
 };
 
-const NumberInput = memo<NumberInputProps>((props) => (
-  <Input {...props} valueEnhancer={numberInputValueEnhancer} />
-));
+const NumberInput = memo<NumberInputProps>(({
+                                              selector,
+                                              action,
+                                            }) => {
+  const value = useSelector(selector);
+
+  return (
+    <div>
+      {`${value}`}
+
+      <DecreaseNumberButton action={action} />
+
+      <IncreaseNumberButton action={action} />
+    </div>
+  )
+});
 
 NumberInput.displayName = "NumberInput";
 

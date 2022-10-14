@@ -1,21 +1,25 @@
-type Status = "Waiting" | "Processing" | "Paused" | "Finished";
+import { Nilable } from "../Utils/Nilable";
 
-type State = {
-  status: Status;
+type Status = "Creating" | "Waiting" | "Active" | "Paused" | "Finished";
+
+type Preset = {
   work: number;
   rest: number;
-  count: number;
+  names: Array<Nilable<string>>;
+}
+
+type State = Preset & {
+  status: Status;
   current: number;
-  names?: Array<string>;
 };
 
 const state: State = {
-  status: "Waiting",
+  status: "Creating",
   work: 45,
   rest: 15,
-  count: 30,
   current: 0,
+  names: new Array(3).fill(null),
 };
 
-export type { State };
+export type { Status, Preset, State };
 export { state };

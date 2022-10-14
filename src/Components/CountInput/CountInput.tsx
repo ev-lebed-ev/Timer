@@ -4,7 +4,7 @@ import { NumberInput } from "../NumberInput/NumberInput";
 import { countUpdatedAction } from "../../Store/Actions";
 
 const CountInput = memo(() => (
-  <NumberInput valueSelector={countSelector} updateValueActionCreator={countUpdatedAction} />
+  <NumberInput selector={countSelector} action={countUpdatedAction} />
 ));
 CountInput.displayName = "CountInput";
 

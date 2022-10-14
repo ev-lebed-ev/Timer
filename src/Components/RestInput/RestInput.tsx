@@ -4,7 +4,7 @@ import { NumberInput } from "../NumberInput/NumberInput";
 import { restUpdatedAction } from "../../Store/Actions";
 
 const RestInput = memo(() => (
-  <NumberInput valueSelector={restSelector} updateValueActionCreator={restUpdatedAction} />
+  <NumberInput selector={restSelector} action={restUpdatedAction} />
 ));
 RestInput.displayName = "RestInput";
 

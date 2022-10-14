@@ -2,6 +2,7 @@ import { Reducer as ReduxReducer } from "redux";
 import { ExplicitAny } from "../../Utils/ExplicitAny";
 import { isNil } from "../../Utils/IsNil";
 import { makeNonNilable } from "../../Utils/MakeNonNilable";
+import { State } from "../State";
 import { actionTypeSymbol } from "./CreateReducer";
 
 type Action<P extends ExplicitAny = ExplicitAny> = {
@@ -15,8 +16,10 @@ type Reducer<S = ExplicitAny, P extends ActionCreator = ActionCreator> =
   ((state: S, payload: ReturnType<P>["payload"]) => S)
   & { [actionTypeSymbol]?: Array<string> };
 
-const getActionTypeToReducers = <S>(reducers: Array<Reducer<S>>): Map<string, Array<Reducer<S>>> => {
-  const actionTypeToReducers = new Map<string, Array<Reducer<S>>>();
+type AppReducer<P extends ActionCreator = ActionCreator> = Reducer<State, P>;
+
+const getActionTypeToReducers = <S>(reducers: Array<AppReducer>): Map<string, Array<AppReducer>> => {
+  const actionTypeToReducers = new Map<string, Array<AppReducer>>();
 
   reducers.forEach((reducer, index) => {
     const actionTypes = reducer[actionTypeSymbol];
@@ -40,7 +43,7 @@ const getActionTypeToReducers = <S>(reducers: Array<Reducer<S>>): Map<string, Ar
   return actionTypeToReducers;
 };
 
-const createRootReducer = <S>(...reducers: Array<Reducer<S>>): ReduxReducer<S, Action> => {
+const createRootReducer = (...reducers: Array<AppReducer>): ReduxReducer<State, Action> => {
   const actionTypeToReducers = getActionTypeToReducers(reducers);
 
   return (state, action) => {
@@ -76,5 +79,6 @@ export {
   Action,
   ActionCreator,
   Reducer,
+  AppReducer,
   createRootReducer,
 };

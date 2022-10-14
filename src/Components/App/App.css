@@ -6,6 +6,7 @@ body {
 }
 
 * {
+  user-select: none;
   background-color: var(--main-color);
   margin: 0;
   padding: 0;
@@ -18,8 +19,6 @@ body {
 }
 
 .app {
-  width: 100vw;
   min-width: 320px;
-  height: 100vh;
   min-height: 100vh;
 }

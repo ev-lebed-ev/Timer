@@ -1,8 +1,13 @@
 import { makeNonNilable } from "./MakeNonNilable";
 import { Nilable } from "./Nilable";
 import { isNil } from "./IsNil";
+import { Nil } from "./Nil";
 
-const clampNumber = (value: number, min: Nilable<number>, max: Nilable<number>): number => {
+function clampNumber(value: number, min: number, max: Nil): number;
+function clampNumber(value: number, min: Nil, max: number): number;
+function clampNumber(value: number, min: number, max: number): number;
+
+function clampNumber(value: number, min: Nilable<number>, max: Nilable<number>) {
   if (isNil(min) && isNil(max)) {
     throw new Error("At least min or mar must be specified but both is nil");
   }
@@ -32,6 +37,6 @@ const clampNumber = (value: number, min: Nilable<number>, max: Nilable<number>):
   }
 
   return value;
-};
+}
 
 export { clampNumber };
