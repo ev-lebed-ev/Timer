@@ -28,6 +28,7 @@ import {
   workSelector
 } from "./Selectors";
 import { isPresetValid } from "./Utils/IsPresetValid";
+import { numberToOrdinal } from "../Utils/NumberToOrdinal";
 
 const intervalPartsUpdateStep = 5;
 
@@ -71,11 +72,11 @@ const updateNamesCountReducer = createReducer(
 
     const names = new Array(nextCount)
       .fill(null)
-      .map((name, index) => {
+      .map((_, index) => {
         const existingName = currentNames[index];
 
         if (isNil(existingName)) {
-          return name;
+          return numberToOrdinal(index + 1);
         }
 
         return existingName;
@@ -180,7 +181,7 @@ const updateLeftReducer = createReducer(
     if (oldLeft === 1) {
       return {
         ...state,
-        left: isWorking? rest : work,
+        left: isWorking ? rest : work,
         iteration: nextIteration,
       };
     }

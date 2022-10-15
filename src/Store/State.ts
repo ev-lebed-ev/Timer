@@ -1,4 +1,5 @@
 import { Nilable } from "../Utils/Nilable";
+import { generateNames } from "./Utils/GenerateNames";
 
 type Status = "Creating" | "Waiting" | "Active" | "Paused" | "Finished";
 
@@ -18,7 +19,7 @@ const state: State = {
   status: "Creating",
   work: 45,
   rest: 15,
-  names: new Array(3).fill(null),
+  names: generateNames(3),
   iteration: 0,
   left: 0,
 };
