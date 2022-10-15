@@ -1,4 +1,4 @@
-type PositiveNumber<N extends number> = `${N}` extends `-${number}`
+type ValidNumber<N extends number> = `${N}` extends `-${number}`
   ? never
   : N;
 
@@ -38,7 +38,7 @@ const tens = [
   "Ninety"
 ]
 
-const numberToOrdinal = <N extends number>(number: PositiveNumber<N>): string => {
+const numberToOrdinal = <N extends number>(number: ValidNumber<N>): string => {
   if (isNaN(number) || number < 0 || !Number.isInteger(number) || number > 999) {
     throw new Error(`Number must be positive and integer less than 1000 instead of ${number}`);
   }
