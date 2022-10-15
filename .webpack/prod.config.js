@@ -13,6 +13,7 @@ module.exports = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "../docs"),
+    filename: "[fullhash].js",
   },
   cache: {
     type: "filesystem"
