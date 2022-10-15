@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev-server": "webpack-dev-server --config .webpack/dev.config.js",
-    "build": "rm -rf dist && webpack --config .webpack/prod.config.js",
+    "build": "rm -rf docs && webpack --config .webpack/prod.config.js",
     "deploy": "rm -rf node_modules/.cache/gh-pages && gh-pages -d dist"
   },
   "dependencies": {

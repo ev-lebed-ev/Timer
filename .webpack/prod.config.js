@@ -11,7 +11,9 @@ module.exports = {
   },
 
   entry: "./src/index.tsx",
-
+  output: {
+    path: path.resolve(__dirname, "../docs"),
+  },
   cache: {
     type: "filesystem"
   },
@@ -67,14 +69,4 @@ module.exports = {
       template: path.resolve(__dirname, "../src/index.html")
     }),
   ],
-
-  devServer: {
-    port: 4000,
-    host: "0.0.0.0",
-    client: {
-      overlay: {
-        errors: true,
-      },
-    }
-  },
 }
