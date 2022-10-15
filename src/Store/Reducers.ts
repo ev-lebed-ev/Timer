@@ -147,6 +147,7 @@ const activateReducer = createReducer(
   (state) => ({
     ...state,
     status: "Active",
+    iteration: 0,
     left: state.work,
   }),
 );
@@ -168,31 +169,40 @@ const finishedReducer = createReducer(
 );
 
 const updateLeftReducer = createReducer(
-  [leftUpdatedAction],
-  (state) => {
-    const oldLeft = leftSelector(state);
-    const oldIteration = iterationSelector(state);
-    const work = workSelector(state);
-    const rest = restSelector(state);
-    const isWorking = isWorkingSelector(state);
+    [leftUpdatedAction],
+    (state) => {
+      const oldLeft = leftSelector(state);
+      const oldIteration = iterationSelector(state);
+      const namesCount = namesCountSelector(state);
+      const work = workSelector(state);
+      const rest = restSelector(state);
+      const isWorking = isWorkingSelector(state);
 
-    const nextIteration = oldIteration + 1;
 
-    if (oldLeft === 1) {
+      if (oldLeft === 1) {
+        const nextIteration = oldIteration + 1;
+
+        if (namesCount === 1 || nextIteration + 1 === namesCount * 2) {
+          return {
+            ...state,
+            status: "Finished",
+          };
+        }
+
+        return {
+          ...state,
+          left: isWorking ? rest : work,
+          iteration: nextIteration,
+        };
+      }
+
       return {
         ...state,
-        left: isWorking ? rest : work,
-        iteration: nextIteration,
-      };
-    }
-
-    return {
-      ...state,
-      left: oldLeft - 1,
-      iteration: nextIteration,
-    }
-  },
-);
+        left: oldLeft - 1,
+      }
+    },
+  )
+;
 
 const rootReducer = createRootReducer(
   updateWorkReducer,

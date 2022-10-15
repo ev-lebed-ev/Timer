@@ -77,11 +77,6 @@ const isWorkingSelector = createSimpleSelector(
   (iteration) => iteration % 2 == 0,
 );
 
-const isRestingSelector = createSimpleSelector(
-  isWorkingSelector,
-  (isWorking)=> !isWorking,
-);
-
 export type { AppSelector };
 export {
   workSelector,
@@ -94,6 +89,5 @@ export {
   isPresetValidSelector,
   leftSelector,
   isWorkingSelector,
-  isRestingSelector,
   iterationSelector,
 };
