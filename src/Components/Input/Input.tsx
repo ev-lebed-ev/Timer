@@ -1,7 +1,8 @@
-import { InputHTMLAttributes, memo, useCallback, useRef } from "react";
+import { InputHTMLAttributes, memo, useCallback } from "react";
 import { ExplicitAny } from "../../Utils/ExplicitAny";
 import { Nilable } from "../../Utils/Nilable";
 import { isNil } from "../../Utils/IsNil";
+import classes from "./Input.css";
 
 type InputOnChange<V extends ExplicitAny> = (value: Nilable<V>) => void;
 
@@ -25,7 +26,7 @@ const Input = memo<InputProps<ExplicitAny>>(({
 
   return (
     <div>
-      <input value={enhancedValue} onChange={enhancedOnChange} />
+      <input className={classes.input} value={enhancedValue} onChange={enhancedOnChange} />
 
       {isNil(value) && <div>{"Error"}</div>}
     </div>

@@ -1,14 +1,15 @@
 import { memo } from "react";
 import { useAction } from "../../Hooks/UseAction";
-import { pauseAction } from "../../Store/Actions";
+import { pausedAction } from "../../Store/Actions";
+import { Button } from "../Button/Button";
 
 const PauseButton = memo(() => {
-  const pause = useAction(pauseAction);
+  const pause = useAction(pausedAction);
 
   return (
-    <button onClick={pause}>
+    <Button onClick={pause}>
       {"Pause"}
-    </button>
+    </Button>
   );
 });
 PauseButton.displayName = "PauseButton";

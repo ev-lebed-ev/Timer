@@ -1,14 +1,15 @@
 import { memo } from "react";
 import { useAction } from "../../Hooks/UseAction";
 import { presetEditedAction } from "../../Store/Actions";
+import { Button } from "../Button/Button";
 
 const EditPresetButton = memo(() => {
   const editPreset = useAction(presetEditedAction);
 
   return (
-    <button onClick={editPreset}>
+    <Button onClick={editPreset}>
       {"Edit"}
-    </button>
+    </Button>
   );
 });
 EditPresetButton.displayName = "EditPresetButton";

@@ -1,8 +1,10 @@
 import {
   activatedAction,
-  countUpdatedAction,
+  finishedAction,
+  leftUpdatedAction,
+  namesCountUpdatedAction,
   nameUpdatedAction,
-  pauseAction,
+  pausedAction,
   presetCreatedAction,
   presetEditedAction,
   presetParsedAction,
@@ -15,7 +17,16 @@ import { isNil } from "../Utils/IsNil";
 import { clampNumber } from "../Utils/ClampNumber";
 import { Sign } from "../Utils/Sign";
 import { Preset, Status } from "./State";
-import { countSelector, isPresetValidSelector, namesSelector } from "./Selectors";
+import {
+  isPresetValidSelector,
+  isWorkingSelector,
+  iterationSelector,
+  leftSelector,
+  namesCountSelector,
+  namesSelector,
+  restSelector,
+  workSelector
+} from "./Selectors";
 import { isPresetValid } from "./Utils/IsPresetValid";
 
 const intervalPartsUpdateStep = 5;
@@ -46,10 +57,10 @@ const updateRestReducer = createReducer(
   updateIntervalPartsReducerFactory("rest"),
 );
 
-const updateCountReducer = createReducer(
-  [countUpdatedAction],
+const updateNamesCountReducer = createReducer(
+  [namesCountUpdatedAction],
   (state, sign) => {
-    const currentCount = countSelector(state);
+    const currentCount = namesCountSelector(state);
     const nextCount = clampNumber(currentCount + sign, 1, Number.MAX_SAFE_INTEGER);
 
     if (nextCount === currentCount) {
@@ -135,27 +146,65 @@ const activateReducer = createReducer(
   (state) => ({
     ...state,
     status: "Active",
+    left: state.work,
   }),
 );
 
 const pauseReducer = createReducer(
-  [pauseAction],
+  [pausedAction],
   (state) => ({
     ...state,
     status: "Paused",
   }),
 );
 
+const finishedReducer = createReducer(
+  [finishedAction],
+  (state) => ({
+    ...state,
+    status: "Finished",
+  }),
+);
+
+const updateLeftReducer = createReducer(
+  [leftUpdatedAction],
+  (state) => {
+    const oldLeft = leftSelector(state);
+    const oldIteration = iterationSelector(state);
+    const work = workSelector(state);
+    const rest = restSelector(state);
+    const isWorking = isWorkingSelector(state);
+
+    const nextIteration = oldIteration + 1;
+
+    if (oldLeft === 1) {
+      return {
+        ...state,
+        left: isWorking? rest : work,
+        iteration: nextIteration,
+      };
+    }
+
+    return {
+      ...state,
+      left: oldLeft - 1,
+      iteration: nextIteration,
+    }
+  },
+);
+
 const rootReducer = createRootReducer(
   updateWorkReducer,
   updateRestReducer,
-  updateCountReducer,
+  updateNamesCountReducer,
   applyParsedPresetReducer,
   updateNameReducer,
   createPresetReducer,
   editPresetReducer,
   activateReducer,
   pauseReducer,
+  finishedReducer,
+  updateLeftReducer,
 );
 
 

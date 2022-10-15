@@ -3,6 +3,14 @@
 body {
   --main-color: rgb(22, 22, 29);
   --opposite-color: rgb(225, 225, 225);
+  --size-unit: 10vmin;
+  --depth-unit: 1vmin;
+  --depth-half-unit: calc(var(--depth-unit) / 2);
+  --depth-half-negative-unit: calc(var(--depth-half-unit) * -1);
+  --darker-color: rgb(11, 11, 14);
+  --lighter-color: rgb(31, 31, 42);
+  padding: var(--size-unit);
+  box-sizing: content-box;
 }
 
 * {
@@ -13,9 +21,10 @@ body {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--opposite-color);
-  font-size: 5vmin;
+  font-size: calc(var(--size-unit) / 3);
+  line-height: var(--size-unit);
 }
 
 .app {

@@ -1,0 +1,11 @@
+.input {
+  outline: none;
+  border: none;
+  width: calc(var(--size-unit) * 5);
+  height: var(--size-unit);
+  margin: calc(var(--size-unit) / 4);
+  border-radius: calc(var(--size-unit) / 2);
+  box-shadow: inset var(--depth-half-unit) var(--depth-half-unit) var(--depth-unit) var(--darker-color),
+  inset var(--depth-half-negative-unit) var(--depth-half-negative-unit) var(--depth-unit) var(--lighter-color);
+  padding: 0 calc(var(--size-unit) / 3);
+}

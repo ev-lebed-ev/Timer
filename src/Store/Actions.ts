@@ -17,8 +17,8 @@ const restUpdatedAction = createActionCreator(
   (sign: Sign) => sign,
 );
 
-const countUpdatedAction = createActionCreator(
-  "COUNT_UPDATED",
+const namesCountUpdatedAction = createActionCreator(
+  "NAMES_COUNT_UPDATED",
   (sign: Sign) => sign,
 );
 
@@ -44,19 +44,29 @@ const activatedAction = createActionCreator(
   "ACTIVATED",
 );
 
-const pauseAction = createActionCreator(
-  "PAUSE",
+const pausedAction = createActionCreator(
+  "PAUSED",
+);
+
+const finishedAction = createActionCreator(
+  "FINISHED",
+);
+
+const leftUpdatedAction = createActionCreator(
+  "LEFT_UPDATED",
 );
 
 export {
   appMountedAction,
   workUpdatedAction,
   restUpdatedAction,
-  countUpdatedAction,
+  namesCountUpdatedAction,
   presetParsedAction,
   nameUpdatedAction,
   presetCreatedAction,
   presetEditedAction,
   activatedAction,
-  pauseAction,
+  pausedAction,
+  finishedAction,
+  leftUpdatedAction,
 };

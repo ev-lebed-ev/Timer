@@ -1,14 +1,15 @@
 import { memo } from "react";
 import { useAction } from "../../Hooks/UseAction";
 import { activatedAction } from "../../Store/Actions";
+import { Button } from "../Button/Button";
 
 const ActivateButton = memo(() => {
   const activate = useAction(activatedAction);
 
   return (
-    <button onClick={activate}>
+    <Button onClick={activate}>
       {"Activate"}
-    </button>
+    </Button>
   );
 });
 ActivateButton.displayName = "ActivateButton";

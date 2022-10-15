@@ -1,10 +1,10 @@
 import { memo } from "react";
-import { countSelector } from "../../Store/Selectors";
+import { namesCountSelector } from "../../Store/Selectors";
 import { NumberInput } from "../NumberInput/NumberInput";
-import { countUpdatedAction } from "../../Store/Actions";
+import { namesCountUpdatedAction } from "../../Store/Actions";
 
 const CountInput = memo(() => (
-  <NumberInput selector={countSelector} action={countUpdatedAction} />
+  <NumberInput selector={namesCountSelector} action={namesCountUpdatedAction} />
 ));
 CountInput.displayName = "CountInput";
 

@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { useSelector } from "react-redux";
-import { countSelector } from "../../Store/Selectors";
+import { namesCountSelector } from "../../Store/Selectors";
 import { NameInput } from "../NameInput/NameInput";
 
 const NameInputs = memo(() => {
-  const count = useSelector(countSelector);
+  const count = useSelector(namesCountSelector);
 
   return (
     <>

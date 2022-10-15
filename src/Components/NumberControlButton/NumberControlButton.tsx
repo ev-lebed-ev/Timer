@@ -2,6 +2,7 @@ import { HTMLAttributes, memo, useCallback } from "react";
 import { Sign } from "../../Utils/Sign";
 import { ActionCreator } from "../../Store/Utils/CreateRootReducer";
 import { useAction } from "../../Hooks/UseAction";
+import { Button } from "../Button/Button";
 
 type NumberControlButtonBase = {
   sign: Sign;
@@ -24,9 +25,9 @@ const NumberControlButton = memo<NumberControlButtonBase>(({
   );
 
   return (
-    <button onClick={onClick}>
+    <Button onClick={onClick}>
       {`${sign}`}
-    </button>
+    </Button>
   );
 });
 NumberControlButton.displayName = "NumberControlButton";

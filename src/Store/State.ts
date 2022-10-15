@@ -10,15 +10,17 @@ type Preset = {
 
 type State = Preset & {
   status: Status;
-  current: number;
+  iteration: number;
+  left: number;
 };
 
 const state: State = {
   status: "Creating",
   work: 45,
   rest: 15,
-  current: 0,
   names: new Array(3).fill(null),
+  iteration: 0,
+  left: 0,
 };
 
 export type { Status, Preset, State };
