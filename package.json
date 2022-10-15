@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev-server": "webpack-dev-server --config .webpack/dev.config.js",
-    "build": "rm -rf docs && webpack --config .webpack/prod.config.js",
-    "deploy": "rm -rf node_modules/.cache/gh-pages && gh-pages -d dist"
+    "build": "rm -rf docs && webpack --config .webpack/prod.config.js"
   },
   "dependencies": {
     "@types/react": "18.0.21",
@@ -25,7 +24,6 @@
     "webpack-cli": "4.10.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "4.8.0",
-    "gh-pages": "4.0.0"
+    "webpack-dev-server": "4.8.0"
   }
 }
