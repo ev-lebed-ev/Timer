@@ -1,6 +1,5 @@
 import {
   countdownUpdatedAction,
-  finishedAction,
   leftUpdatedAction,
   namesCountUpdatedAction,
   nameUpdatedAction,
@@ -18,7 +17,7 @@ import { createReducer } from "./CreateReducer";
 import { isNil } from "../../Utils/IsNil";
 import { clampNumber } from "../../Utils/ClampNumber";
 import { Sign } from "../../Utils/Sign";
-import { initialState, Preset, Status } from "../State";
+import { Layout, Preset } from "../State";
 import {
   countdownSelector,
   isPresetValidSelector,
@@ -95,14 +94,14 @@ const updateNamesCountReducer = createReducer(
 const applyParsedPresetReducer = createReducer(
   [presetParsedAction],
   (state, preset) => {
-    const status: Status = isPresetValid(preset)
+    const layout: Layout = isPresetValid(preset)
       ? "Waiting"
       : "Creating";
 
     return {
       ...state,
       ...preset,
-      status,
+      layout,
     }
   },
 );
@@ -129,7 +128,7 @@ const createPresetReducer = createReducer(
     if (isPresetValidSelector(state)) {
       return {
         ...state,
-        status: "Waiting",
+        layout: "Waiting",
       };
     }
 
@@ -141,26 +140,32 @@ const editPresetReducer = createReducer(
   [presetEditedAction],
   (state) => ({
     ...state,
-    status: "Creating",
+    layout: "Creating",
   }),
 );
 
 const startReducer = createReducer(
   [startAction],
-  (state) => ({
-    ...state,
-    status: "Started",
-    iteration: 0,
-    left: state.work,
-  }),
+  (state) => {
+    const work = workSelector(state);
+
+    return {
+      ...state,
+      layout: "Started",
+      iteration: 0,
+      left: work,
+      countdown: 10,
+    }
+  },
 );
 
 const resumeReducer = createReducer(
   [resumeAction],
   (state) => ({
     ...state,
-    status: "Started",
-    countdown: initialState.countdown,
+    layout: "Started",
+    countdown: 10,
+    paused: false,
   }),
 );
 
@@ -168,15 +173,8 @@ const pauseReducer = createReducer(
   [pausedAction],
   (state) => ({
     ...state,
-    status: "Paused",
-  }),
-);
-
-const finishedReducer = createReducer(
-  [finishedAction],
-  (state) => ({
-    ...state,
-    status: "Finished",
+    countdown: 0,
+    paused: true,
   }),
 );
 
@@ -194,7 +192,7 @@ const updateCountdownReducer = createReducer(
 
     return {
       ...state,
-      countdown: state.countdown - 1,
+      countdown: oldCountdown - 1,
     }
   },
 );
@@ -215,7 +213,7 @@ const updateLeftReducer = createReducer(
       if (namesCount === 1 || nextIteration + 1 === namesCount * 2) {
         return {
           ...state,
-          status: "Finished",
+          layout: "Finished",
         };
       }
 
@@ -244,7 +242,6 @@ const rootReducer = createRootReducer(
   startReducer,
   resumeReducer,
   pauseReducer,
-  finishedReducer,
   updateCountdownReducer,
   updateLeftReducer,
 );

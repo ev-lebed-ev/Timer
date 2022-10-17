@@ -2,24 +2,23 @@ import { ComponentType, createElement, memo, useEffect } from "react";
 import classes from "./App.css";
 import { useAction } from "../../Hooks/UseAction";
 import { appMountedAction } from "../../Store/Actions";
-import { Status } from "../../Store/State";
+import { Layout } from "../../Store/State";
 import { CreatingLayout } from "../Layouts/CreatingLayout/CreatingLayout";
 import { NoopLayout } from "../Layouts/NoopLayout/NoopLayout";
 import { useSelector } from "react-redux";
-import { statusSelector } from "../../Store/Selectors";
+import { layoutSelector } from "../../Store/Selectors";
 import { WaitingLayout } from "../Layouts/WaitingLayout/WaitingLayout";
 import { StartedLayout } from "../Layouts/StartedLayout/StartedLayout";
 
-const layouts: Record<Status, ComponentType> = {
+const layouts: Record<Layout, ComponentType> = {
   "Creating": CreatingLayout,
   "Waiting": WaitingLayout,
   "Started": StartedLayout,
-  "Paused": StartedLayout,
   "Finished": NoopLayout,
 };
 
 const App = memo(() => {
-  const status = useSelector(statusSelector);
+  const layout = useSelector(layoutSelector);
 
   const onMount = useAction(appMountedAction);
 
@@ -27,7 +26,7 @@ const App = memo(() => {
 
   return (
     <div className={classes.app}>
-      {createElement(layouts[status])}
+      {createElement(layouts[layout])}
     </div>
   );
 });

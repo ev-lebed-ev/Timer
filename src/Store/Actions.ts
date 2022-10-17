@@ -52,10 +52,6 @@ const pausedAction = createActionCreator(
   "PAUSED",
 );
 
-const finishedAction = createActionCreator(
-  "FINISHED",
-);
-
 const countdownUpdatedAction = createActionCreator(
   "COUNTDOWN_UPDATED",
 );
@@ -76,7 +72,6 @@ export {
   startAction,
   resumeAction,
   pausedAction,
-  finishedAction,
   countdownUpdatedAction,
   leftUpdatedAction,
 };

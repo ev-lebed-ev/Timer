@@ -1,6 +1,6 @@
 import { Selector } from "react-redux";
 import { createPropertySelector } from "./Utils/CreatePropertySelector";
-import { Preset, State, Status } from "./State";
+import { Preset, State } from "./State";
 import { createSelector } from "reselect";
 import { createSimpleSelector } from "./Reducers/CreateSimpleSelector";
 import { isPresetValid } from "./Utils/IsPresetValid";
@@ -46,18 +46,15 @@ const presetSelector = createSelector(
   }),
 );
 
-const statusSelector = createPropertySelector(
+const layoutSelector = createPropertySelector(
   stateSelector,
-  ["status"],
+  ["layout"],
 );
 
-const specificStatusSelectorFactory = (status: Status) =>
-  createSimpleSelector(
-    statusSelector,
-    (currentStatus) => currentStatus === status,
-  );
-
-const isPausedSelector = specificStatusSelectorFactory("Paused");
+const isPausedSelector = createPropertySelector(
+  stateSelector,
+  ["paused"],
+);
 
 const isPresetValidSelector = createSelector(
   presetSelector,
@@ -72,6 +69,11 @@ const leftSelector = createPropertySelector(
 const iterationSelector = createPropertySelector(
   stateSelector,
   ["iteration"],
+);
+
+const currentIntervalSelector = createSimpleSelector(
+  iterationSelector,
+  (iteration) => Math.floor(iteration / 2 + 1),
 );
 
 const isWorkingSelector = createSimpleSelector(
@@ -97,7 +99,7 @@ export {
   presetSelector,
   namesSelector,
   nameSelector,
-  statusSelector,
+  layoutSelector,
   isPresetValidSelector,
   leftSelector,
   isWorkingSelector,
@@ -105,4 +107,5 @@ export {
   isPausedSelector,
   countdownSelector,
   isCountingDownSelector,
+  currentIntervalSelector,
 };

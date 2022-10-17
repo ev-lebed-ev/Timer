@@ -1,7 +1,7 @@
 import { Nilable } from "../Utils/Nilable";
 import { generateNames } from "./Utils/GenerateNames";
 
-type Status = "Creating" | "Waiting" | "Started" | "Paused" | "Finished";
+type Layout = "Creating" | "Waiting" | "Started" | "Finished";
 
 type Preset = {
   work: number;
@@ -10,21 +10,23 @@ type Preset = {
 }
 
 type State = Preset & {
-  status: Status;
+  layout: Layout;
   iteration: number;
   left: number;
   countdown: number;
+  paused: boolean;
 };
 
 const initialState: State = {
-  status: "Creating",
+  layout: "Creating",
   work: 45,
   rest: 15,
   names: generateNames(3),
   iteration: 0,
   left: 0,
-  countdown: 10,
+  countdown: 0,
+  paused: false,
 };
 
-export type { Status, Preset, State };
+export type { Layout, Preset, State };
 export { initialState };

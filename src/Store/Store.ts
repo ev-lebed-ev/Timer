@@ -7,6 +7,6 @@ const store = legacy_createStore(
   rootReducer,
   initialState,
   applyMiddleware(rootMiddleware),
-  );
+);
 
 export { store };
