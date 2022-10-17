@@ -57,6 +57,8 @@ const specificStatusSelectorFactory = (status: Status) =>
     (currentStatus) => currentStatus === status,
   );
 
+const isPausedSelector = specificStatusSelectorFactory("Paused");
+
 const isPresetValidSelector = createSelector(
   presetSelector,
   isPresetValid,
@@ -77,6 +79,16 @@ const isWorkingSelector = createSimpleSelector(
   (iteration) => iteration % 2 == 0,
 );
 
+const countdownSelector = createPropertySelector(
+  stateSelector,
+  ["countdown"],
+);
+
+const isCountingDownSelector = createSimpleSelector(
+  countdownSelector,
+  (countdown) => countdown > 0,
+);
+
 export type { AppSelector };
 export {
   workSelector,
@@ -90,4 +102,7 @@ export {
   leftSelector,
   isWorkingSelector,
   iterationSelector,
+  isPausedSelector,
+  countdownSelector,
+  isCountingDownSelector,
 };

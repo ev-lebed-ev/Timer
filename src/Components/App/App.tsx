@@ -3,19 +3,18 @@ import classes from "./App.css";
 import { useAction } from "../../Hooks/UseAction";
 import { appMountedAction } from "../../Store/Actions";
 import { Status } from "../../Store/State";
-import { CreatingLayout } from "../CreatingLayout/CreatingLayout";
-import { NoopLayout } from "../NoopLayout/NoopLayout";
+import { CreatingLayout } from "../Layouts/CreatingLayout/CreatingLayout";
+import { NoopLayout } from "../Layouts/NoopLayout/NoopLayout";
 import { useSelector } from "react-redux";
 import { statusSelector } from "../../Store/Selectors";
-import { WaitingLayout } from "../WaitingLayout/WaitingLayout";
-import { PausedLayout } from "../PausedLayout/PausedLayout";
-import { ActiveLayout } from "../ActiveLayout/ActiveLayout";
+import { WaitingLayout } from "../Layouts/WaitingLayout/WaitingLayout";
+import { StartedLayout } from "../Layouts/StartedLayout/StartedLayout";
 
 const layouts: Record<Status, ComponentType> = {
   "Creating": CreatingLayout,
   "Waiting": WaitingLayout,
-  "Active": ActiveLayout,
-  "Paused": PausedLayout,
+  "Started": StartedLayout,
+  "Paused": StartedLayout,
   "Finished": NoopLayout,
 };
 

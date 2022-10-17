@@ -1,5 +1,5 @@
 import {
-  activatedAction,
+  countdownUpdatedAction,
   finishedAction,
   leftUpdatedAction,
   namesCountUpdatedAction,
@@ -9,6 +9,8 @@ import {
   presetEditedAction,
   presetParsedAction,
   restUpdatedAction,
+  resumeAction,
+  startAction,
   workUpdatedAction
 } from "./Actions";
 import { ActionCreator, AppReducer, createRootReducer } from "./Utils/CreateRootReducer";
@@ -16,8 +18,9 @@ import { createReducer } from "./Utils/CreateReducer";
 import { isNil } from "../Utils/IsNil";
 import { clampNumber } from "../Utils/ClampNumber";
 import { Sign } from "../Utils/Sign";
-import { Preset, Status } from "./State";
+import { initialState, Preset, Status } from "./State";
 import {
+  countdownSelector,
   isPresetValidSelector,
   isWorkingSelector,
   iterationSelector,
@@ -142,13 +145,22 @@ const editPresetReducer = createReducer(
   }),
 );
 
-const activateReducer = createReducer(
-  [activatedAction],
+const startReducer = createReducer(
+  [startAction],
   (state) => ({
     ...state,
-    status: "Active",
+    status: "Started",
     iteration: 0,
     left: state.work,
+  }),
+);
+
+const resumeReducer = createReducer(
+  [resumeAction],
+  (state) => ({
+    ...state,
+    status: "Started",
+    countdown: initialState.countdown,
   }),
 );
 
@@ -168,41 +180,58 @@ const finishedReducer = createReducer(
   }),
 );
 
+const updateCountdownReducer = createReducer(
+  [countdownUpdatedAction],
+  (state) => {
+    const oldCountdown = countdownSelector(state);
+
+    if (oldCountdown === 1) {
+      return {
+        ...state,
+        countdown: 0,
+      };
+    }
+
+    return {
+      ...state,
+      countdown: state.countdown - 1,
+    }
+  },
+);
+
 const updateLeftReducer = createReducer(
-    [leftUpdatedAction],
-    (state) => {
-      const oldLeft = leftSelector(state);
-      const oldIteration = iterationSelector(state);
-      const namesCount = namesCountSelector(state);
-      const work = workSelector(state);
-      const rest = restSelector(state);
-      const isWorking = isWorkingSelector(state);
+  [leftUpdatedAction],
+  (state) => {
+    const oldLeft = leftSelector(state);
+    const oldIteration = iterationSelector(state);
+    const namesCount = namesCountSelector(state);
+    const work = workSelector(state);
+    const rest = restSelector(state);
+    const isWorking = isWorkingSelector(state);
 
+    if (oldLeft === 1) {
+      const nextIteration = oldIteration + 1;
 
-      if (oldLeft === 1) {
-        const nextIteration = oldIteration + 1;
-
-        if (namesCount === 1 || nextIteration + 1 === namesCount * 2) {
-          return {
-            ...state,
-            status: "Finished",
-          };
-        }
-
+      if (namesCount === 1 || nextIteration + 1 === namesCount * 2) {
         return {
           ...state,
-          left: isWorking ? rest : work,
-          iteration: nextIteration,
+          status: "Finished",
         };
       }
 
       return {
         ...state,
-        left: oldLeft - 1,
-      }
-    },
-  )
-;
+        left: isWorking ? rest : work,
+        iteration: nextIteration,
+      };
+    }
+
+    return {
+      ...state,
+      left: oldLeft - 1,
+    }
+  },
+);
 
 const rootReducer = createRootReducer(
   updateWorkReducer,
@@ -212,9 +241,11 @@ const rootReducer = createRootReducer(
   updateNameReducer,
   createPresetReducer,
   editPresetReducer,
-  activateReducer,
+  startReducer,
+  resumeReducer,
   pauseReducer,
   finishedReducer,
+  updateCountdownReducer,
   updateLeftReducer,
 );
 

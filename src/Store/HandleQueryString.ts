@@ -6,10 +6,7 @@ import { Nilable } from "../Utils/Nilable";
 import { isEmpty } from "../Utils/IsEmpty";
 import { presetParsedAction } from "./Actions";
 import { Action } from "./Utils/CreateRootReducer";
-import testSounds from "../Assets/Sounds/Test.mp3";
 
-
-console.log(testSounds)
 const parsePreset = (): Nilable<Preset> => {
   const queryString = window.location.search.slice(1);
 
@@ -57,8 +54,6 @@ const handleQueryString: Middleware<never, State, ExplicitAny> = (store) => {
 
       next(action);
 
-      const audio = new Audio(testSounds);
-      audio.play();
       replaceQueryString(store.getState());
     };
 }

@@ -40,8 +40,12 @@ const presetEditedAction = createActionCreator(
   "PRESET_EDITED",
 );
 
-const activatedAction = createActionCreator(
-  "ACTIVATED",
+const startAction = createActionCreator(
+  "START",
+);
+
+const resumeAction = createActionCreator(
+  "RESUME",
 );
 
 const pausedAction = createActionCreator(
@@ -50,6 +54,10 @@ const pausedAction = createActionCreator(
 
 const finishedAction = createActionCreator(
   "FINISHED",
+);
+
+const countdownUpdatedAction = createActionCreator(
+  "COUNTDOWN_UPDATED",
 );
 
 const leftUpdatedAction = createActionCreator(
@@ -65,8 +73,10 @@ export {
   nameUpdatedAction,
   presetCreatedAction,
   presetEditedAction,
-  activatedAction,
+  startAction,
+  resumeAction,
   pausedAction,
   finishedAction,
+  countdownUpdatedAction,
   leftUpdatedAction,
 };
