@@ -2,7 +2,7 @@ import { Selector } from "react-redux";
 import { createPropertySelector } from "./Utils/CreatePropertySelector";
 import { Preset, State, Status } from "./State";
 import { createSelector } from "reselect";
-import { createSimpleSelector } from "./Utils/CreateSimpleSelector";
+import { createSimpleSelector } from "./Reducers/CreateSimpleSelector";
 import { isPresetValid } from "./Utils/IsPresetValid";
 
 type AppSelector<R> = Selector<State, R>;

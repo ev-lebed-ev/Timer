@@ -5,11 +5,12 @@ import { presetSelector } from "./Selectors";
 import { Nilable } from "../Utils/Nilable";
 import { isEmpty } from "../Utils/IsEmpty";
 import { presetParsedAction } from "./Actions";
-import { Action } from "./Utils/CreateRootReducer";
-import testSounds from "../Assets/Sounds/Test.mp3";
+import { Action } from "./Reducers/CreateRootReducer";
 
+// import testSounds from "../Assets/Sounds/Sound.mp3";
+// const audio = new Audio(testSounds);
+// audio.play();
 
-console.log(testSounds)
 const parsePreset = (): Nilable<Preset> => {
   const queryString = window.location.search.slice(1);
 
@@ -46,7 +47,6 @@ const replaceQueryString = (state: State) => {
 const handleQueryString: Middleware<never, State, ExplicitAny> = (store) => {
   let initialized = false;
 
-
   return (next) =>
     (action: Action) => {
       if (!initialized) {
@@ -57,8 +57,6 @@ const handleQueryString: Middleware<never, State, ExplicitAny> = (store) => {
 
       next(action);
 
-      const audio = new Audio(testSounds);
-      audio.play();
       replaceQueryString(store.getState());
     };
 }

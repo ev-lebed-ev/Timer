@@ -10,13 +10,13 @@ import {
   presetParsedAction,
   restUpdatedAction,
   workUpdatedAction
-} from "./Actions";
-import { ActionCreator, AppReducer, createRootReducer } from "./Utils/CreateRootReducer";
-import { createReducer } from "./Utils/CreateReducer";
-import { isNil } from "../Utils/IsNil";
-import { clampNumber } from "../Utils/ClampNumber";
-import { Sign } from "../Utils/Sign";
-import { Preset, Status } from "./State";
+} from "../Actions";
+import { ActionCreator, AppReducer, createRootReducer } from "./CreateRootReducer";
+import { createReducer } from "./CreateReducer";
+import { isNil } from "../../Utils/IsNil";
+import { clampNumber } from "../../Utils/ClampNumber";
+import { Sign } from "../../Utils/Sign";
+import { Preset, Status } from "../State";
 import {
   isPresetValidSelector,
   isWorkingSelector,
@@ -26,9 +26,9 @@ import {
   namesSelector,
   restSelector,
   workSelector
-} from "./Selectors";
-import { isPresetValid } from "./Utils/IsPresetValid";
-import { numberToOrdinal } from "../Utils/NumberToOrdinal";
+} from "../Selectors";
+import { isPresetValid } from "../Utils/IsPresetValid";
+import { numberToOrdinal } from "../../Utils/NumberToOrdinal";
 
 const intervalPartsUpdateStep = 5;
 

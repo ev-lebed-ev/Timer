@@ -1,6 +1,5 @@
+import { actionTypeSymbol } from "../Utils/GetActionTypeToHalders";
 import { ActionCreator, AppReducer } from "./CreateRootReducer";
-
-const actionTypeSymbol = Symbol("actionType");
 
 const createReducer = <A extends ActionCreator>(actionCreators: Array<A>, reducer: AppReducer<A>): AppReducer<A> => {
   reducer[actionTypeSymbol] = actionCreators.map((actionCreator)=> actionCreator().type);
@@ -8,4 +7,4 @@ const createReducer = <A extends ActionCreator>(actionCreators: Array<A>, reduce
   return reducer;
 };
 
-export { actionTypeSymbol, createReducer };
+export { createReducer };

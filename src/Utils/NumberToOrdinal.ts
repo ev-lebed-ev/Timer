@@ -47,7 +47,7 @@ const numberToOrdinal = <N extends number>(number: ValidNumber<N>): string => {
     return "Zero"
   }
 
-  //the case of 1 - 20
+  // The case of 1 - 20
   if (number < 20) {
     return ones[number];
   }
@@ -58,7 +58,7 @@ const numberToOrdinal = <N extends number>(number: ValidNumber<N>): string => {
     return `${tens[Number(numberStr[0])]} ${ones[Number(numberStr[1])]}`;
   }
 
-  //100 and more
+  // 100 and more
   if (numberStr[1] === "0" && numberStr[2] === "0") {
     return `${ones[Number(numberStr[0])]} Hundred`;
   }

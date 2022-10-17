@@ -2,7 +2,7 @@ import { memo } from "react";
 import { DecreaseNumberButton, IncreaseNumberButton } from "../NumberControlButton/NumberControlButton";
 import { Sign } from "../../Utils/Sign";
 import { useSelector } from "react-redux";
-import { ActionCreator } from "../../Store/Utils/CreateRootReducer";
+import { ActionCreator } from "../../Store/Reducers/CreateRootReducer";
 import { AppSelector } from "../../Store/Selectors";
 
 type UpdateAction<S extends Sign> = ActionCreator<[S], S>;

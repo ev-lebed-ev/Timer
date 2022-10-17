@@ -1,5 +1,5 @@
 import { ExplicitAny } from "../../Utils/ExplicitAny";
-import { ActionCreator } from "./CreateRootReducer";
+import { ActionCreator } from "../Reducers/CreateRootReducer";
 
 const createActionCreator = <A extends Array<ExplicitAny> = Array<ExplicitAny>, P extends ExplicitAny = null>(
   type: string,

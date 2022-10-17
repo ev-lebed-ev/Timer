@@ -1,9 +1,8 @@
 import { Reducer as ReduxReducer } from "redux";
 import { ExplicitAny } from "../../Utils/ExplicitAny";
 import { isNil } from "../../Utils/IsNil";
-import { makeNonNilable } from "../../Utils/MakeNonNilable";
 import { State } from "../State";
-import { actionTypeSymbol } from "./CreateReducer";
+import { ActionHandler, getActionTypeToHandlers } from "../Utils/GetActionTypeToHalders";
 
 type Action<P extends ExplicitAny = ExplicitAny> = {
   type: string;
@@ -12,39 +11,13 @@ type Action<P extends ExplicitAny = ExplicitAny> = {
 
 type ActionCreator<A extends Array<ExplicitAny> = Array<ExplicitAny>, P extends ExplicitAny = ExplicitAny> = (...args: A) => Action<P>;
 
-type Reducer<S = ExplicitAny, P extends ActionCreator = ActionCreator> =
-  ((state: S, payload: ReturnType<P>["payload"]) => S)
-  & { [actionTypeSymbol]?: Array<string> };
+type Reducer<A extends ActionCreator = ActionCreator> =
+  ((state: State, payload: ReturnType<A>["payload"]) => State);
 
-type AppReducer<P extends ActionCreator = ActionCreator> = Reducer<State, P>;
-
-const getActionTypeToReducers = <S>(reducers: Array<AppReducer>): Map<string, Array<AppReducer>> => {
-  const actionTypeToReducers = new Map<string, Array<AppReducer>>();
-
-  reducers.forEach((reducer, index) => {
-    const actionTypes = reducer[actionTypeSymbol];
-
-    if (isNil(actionTypes)) {
-      throw new Error(`Reducer without action type was provided by index ${index}`);
-    }
-
-    actionTypes.forEach((actionType) => {
-      if (!actionTypeToReducers.has(actionType)) {
-        actionTypeToReducers.set(actionType, []);
-      }
-
-      actionTypeToReducers.set(
-        actionType,
-        [...makeNonNilable(actionTypeToReducers.get(actionType), "Reducers by action type"), reducer],
-      );
-    })
-  });
-
-  return actionTypeToReducers;
-};
+type AppReducer<A extends ActionCreator = ActionCreator> = ActionHandler & Reducer<A>;
 
 const createRootReducer = (...reducers: Array<AppReducer>): ReduxReducer<State, Action> => {
-  const actionTypeToReducers = getActionTypeToReducers(reducers);
+  const actionTypeToReducers = getActionTypeToHandlers<AppReducer>(reducers);
 
   return (state, action) => {
     if (isNil(state)) {

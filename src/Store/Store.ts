@@ -1,12 +1,12 @@
 import { applyMiddleware, legacy_createStore } from "redux";
-import { rootReducer } from "./Reducers";
+import { rootReducer } from "./Reducers/RootReducer";
 import { state } from "./State";
-import { handleQueryString } from "./HandleQueryString";
+import { rootMiddleware } from "./Middlewares/RootMiddleware";
 
 const store = legacy_createStore(
   rootReducer,
   state,
-  applyMiddleware(handleQueryString),
+  applyMiddleware(rootMiddleware),
   );
 
 export { store };
