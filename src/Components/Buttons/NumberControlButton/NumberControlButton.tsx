@@ -1,8 +1,8 @@
 import { HTMLAttributes, memo, useCallback } from "react";
 import { Sign } from "../../../Utils/Sign";
-import { ActionCreator } from "../../../Store/Reducers/CreateRootReducer";
 import { useAction } from "../../../Hooks/UseAction";
 import { Button } from "../Button/Button";
+import { ActionCreator } from "../../../Store/Utils/ActionCreator";
 
 type NumberControlButtonBase = {
   sign: Sign;

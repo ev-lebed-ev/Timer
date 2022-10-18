@@ -1,4 +1,4 @@
-import { ActionCreator, AppReducer } from "./CreateRootReducer";
+import { AppReducer } from "./CreateRootReducer";
 import { createReducer } from "./CreateReducer";
 import { State } from "../State";
 import { RequireAtLeastOne } from "../../Utils/RequireOne";
@@ -6,6 +6,7 @@ import { ExplicitAny } from "../../Utils/ExplicitAny";
 import { isEmpty } from "../../Utils/IsEmpty";
 import { isLastElement } from "../../Utils/IsLastElement";
 import { isNil } from "../../Utils/IsNil";
+import { ActionCreator } from "../Utils/ActionCreator";
 
 /* no */
 function createSimpleReducer<A extends ActionCreator<ExplicitAny, RequireAtLeastOne<State>>>(actionCreators: Array<A>): AppReducer<A>;

@@ -9,7 +9,7 @@ const useTimer = (enabled: boolean, callback: VoidFunction, deps: Array<Explicit
   useEffect(
     () => {
       if (enabled) {
-        intervalIdRef.current = setInterval(callback, 250);
+        intervalIdRef.current = setInterval(callback, 1000);
       }
 
       return () => {

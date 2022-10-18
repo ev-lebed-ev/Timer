@@ -40,12 +40,12 @@ const presetEditedAction = createActionCreator(
   "PRESET_EDITED",
 );
 
-const startAction = createActionCreator(
-  "START",
+const startedAction = createActionCreator(
+  "STARTED",
 );
 
-const resumeAction = createActionCreator(
-  "RESUME",
+const resumedAction = createActionCreator(
+  "RESUMED",
 );
 
 const pausedAction = createActionCreator(
@@ -60,6 +60,10 @@ const leftUpdatedAction = createActionCreator(
   "LEFT_UPDATED",
 );
 
+const restartedAction = createActionCreator(
+  "RESTARTED",
+);
+
 export {
   appMountedAction,
   workUpdatedAction,
@@ -69,9 +73,10 @@ export {
   nameUpdatedAction,
   presetCreatedAction,
   presetEditedAction,
-  startAction,
-  resumeAction,
+  startedAction,
+  resumedAction,
   pausedAction,
   countdownUpdatedAction,
   leftUpdatedAction,
+  restartedAction,
 };

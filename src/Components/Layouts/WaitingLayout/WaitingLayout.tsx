@@ -4,9 +4,9 @@ import { StartButton } from "../../Buttons/StartButton/StartButton";
 
 const WaitingLayout = memo(() => (
   <div>
-      <EditPresetButton />
+    <EditPresetButton />
 
-      <StartButton />
+    <StartButton />
   </div>
 ));
 WaitingLayout.displayName = "WaitingLayout";

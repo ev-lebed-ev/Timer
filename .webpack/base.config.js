@@ -59,7 +59,7 @@ module.exports = (config) => ({
         ],
       },
       {
-        test: /\.mp3$/,
+        test: /\.m4a$/,
         loader: "file-loader",
       },
     ],

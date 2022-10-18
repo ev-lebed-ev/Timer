@@ -1,15 +1,8 @@
 import { Reducer as ReduxReducer } from "redux";
-import { ExplicitAny } from "../../Utils/ExplicitAny";
 import { isNil } from "../../Utils/IsNil";
 import { State } from "../State";
+import { Action, ActionCreator } from "../Utils/ActionCreator";
 import { ActionHandler, getActionTypeToHandlers } from "../Utils/GetActionTypeToHalders";
-
-type Action<P extends ExplicitAny = ExplicitAny> = {
-  type: string;
-  payload: P;
-};
-
-type ActionCreator<A extends Array<ExplicitAny> = Array<ExplicitAny>, P extends ExplicitAny = ExplicitAny> = (...args: A) => Action<P>;
 
 type Reducer<A extends ActionCreator = ActionCreator> =
   ((state: State, payload: ReturnType<A>["payload"]) => State);
@@ -48,10 +41,4 @@ const createRootReducer = (...reducers: Array<AppReducer>): ReduxReducer<State, 
   };
 };
 
-export {
-  Action,
-  ActionCreator,
-  Reducer,
-  AppReducer,
-  createRootReducer,
-};
+export { Reducer, AppReducer, createRootReducer };

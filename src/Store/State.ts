@@ -17,6 +17,9 @@ type State = Preset & {
   paused: boolean;
 };
 
+const COUNTDOWN_TIME = 3;
+const INTERVAL_PART_TIME = 5;
+
 const initialState: State = {
   layout: "Creating",
   work: 45,
@@ -24,9 +27,9 @@ const initialState: State = {
   names: generateNames(3),
   iteration: 0,
   left: 0,
-  countdown: 0,
+  countdown: COUNTDOWN_TIME,
   paused: false,
 };
 
 export type { Layout, Preset, State };
-export { initialState };
+export { COUNTDOWN_TIME,INTERVAL_PART_TIME, initialState };

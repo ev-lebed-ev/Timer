@@ -25,7 +25,7 @@ const parsePreset = (): Nilable<Preset> => {
 
 const initializeMiddleware = createMiddleware(
   [appMountedAction],
-  (state, dispatch, action) => {
+  (state, dispatch) => {
     const parsedPreset = parsePreset();
 
     if (parsedPreset) {

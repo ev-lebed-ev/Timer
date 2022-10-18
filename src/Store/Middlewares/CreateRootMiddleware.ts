@@ -1,10 +1,10 @@
 import { Dispatch, Middleware as ReduxMiddleware } from "redux";
 import { isNil } from "../../Utils/IsNil";
 import { State } from "../State";
-import { Action, ActionCreator } from "../Reducers/CreateRootReducer";
 import { ExplicitAny } from "../../Utils/ExplicitAny";
 import { presetSelector } from "../Selectors";
 import { ActionHandler, getActionTypeToHandlers } from "../Utils/GetActionTypeToHalders";
+import { Action, ActionCreator } from "../Utils/ActionCreator";
 
 type Middleware<A extends ActionCreator = ActionCreator> =
   (state: State, dispatch: Dispatch<Action>, action: ReturnType<A>) => void;

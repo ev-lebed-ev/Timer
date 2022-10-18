@@ -4,7 +4,7 @@ import { useAction } from "../../Hooks/UseAction";
 import { appMountedAction } from "../../Store/Actions";
 import { Layout } from "../../Store/State";
 import { CreatingLayout } from "../Layouts/CreatingLayout/CreatingLayout";
-import { NoopLayout } from "../Layouts/NoopLayout/NoopLayout";
+import { FinishedLayout } from "../Layouts/FinishedLayout/FinishedLayout";
 import { useSelector } from "react-redux";
 import { layoutSelector } from "../../Store/Selectors";
 import { WaitingLayout } from "../Layouts/WaitingLayout/WaitingLayout";
@@ -14,7 +14,7 @@ const layouts: Record<Layout, ComponentType> = {
   "Creating": CreatingLayout,
   "Waiting": WaitingLayout,
   "Started": StartedLayout,
-  "Finished": NoopLayout,
+  "Finished": FinishedLayout,
 };
 
 const App = memo(() => {

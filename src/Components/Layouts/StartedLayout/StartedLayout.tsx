@@ -1,12 +1,16 @@
 import { memo } from "react";
 import { useSelector } from "react-redux";
 import {
-  countdownSelector, currentIntervalSelector,
+  countdownSelector,
+  currentIntervalNameSelector,
+  currentIntervalSelector,
+  haveCustomNamesSelector,
   isCountingDownSelector,
   isPausedSelector,
   isWorkingSelector,
   iterationSelector,
-  leftSelector, namesCountSelector
+  leftSelector,
+  namesCountSelector
 } from "../../../Store/Selectors";
 import { useAction } from "../../../Hooks/UseAction";
 import { countdownUpdatedAction, leftUpdatedAction } from "../../../Store/Actions";
@@ -18,8 +22,6 @@ const Interval = memo(() => {
   const paused = useSelector(isPausedSelector);
   const left = useSelector(leftSelector);
   const isWorking = useSelector(isWorkingSelector);
-  const namesCount = useSelector(namesCountSelector);
-  const currentInterval = useSelector(currentIntervalSelector);
 
   const updateLeft = useAction(leftUpdatedAction);
 
@@ -28,8 +30,6 @@ const Interval = memo(() => {
   return (
     <div>
       <div>{isWorking ? "Work" : "Rest"}</div>
-
-      <div>{`${currentInterval} | ${namesCount}`}</div>
 
       <div>{left}</div>
     </div>
@@ -54,12 +54,26 @@ const Countdown = memo(() => {
 });
 Countdown.displayName = "Countdown";
 
+const CurrentIntervalName = memo(() => {
+  const currentIntervalName = useSelector(currentIntervalNameSelector);
+
+  return <div>{currentIntervalName}</div>;
+});
+CurrentIntervalName.displayName = "CurrentIntervalName";
+
 const StartedLayout = memo(() => {
   const isCountingDown = useSelector(isCountingDownSelector);
+  const namesCount = useSelector(namesCountSelector);
+  const haveCustomNames = useSelector(haveCustomNamesSelector);
+  const currentInterval = useSelector(currentIntervalSelector);
 
   return (
     <div>
       <PauseResumeButton />
+
+      {haveCustomNames && <CurrentIntervalName />}
+
+      <div>{`${currentInterval + 1} | ${namesCount}`}</div>
 
       {isCountingDown ? <Countdown /> : <Interval />}
     </div>

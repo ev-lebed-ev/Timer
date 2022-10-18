@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { useAction } from "../../../Hooks/UseAction";
-import { resumeAction } from "../../../Store/Actions";
+import { resumedAction } from "../../../Store/Actions";
 import { Button } from "../Button/Button";
 
 const ResumeButton = memo(() => {
-  const resume = useAction(resumeAction);
+  const resume = useAction(resumedAction);
 
   return (
     <Button onClick={resume}>

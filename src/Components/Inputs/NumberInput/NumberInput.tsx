@@ -2,10 +2,8 @@ import { memo } from "react";
 import { DecreaseNumberButton, IncreaseNumberButton } from "../../Buttons/NumberControlButton/NumberControlButton";
 import { Sign } from "../../../Utils/Sign";
 import { useSelector } from "react-redux";
-import { ActionCreator } from "../../../Store/Reducers/CreateRootReducer";
 import { AppSelector } from "../../../Store/Selectors";
-
-type UpdateAction<S extends Sign> = ActionCreator<[S], S>;
+import { ActionCreator } from "../../../Store/Utils/ActionCreator";
 
 type NumberInputProps = {
   selector: AppSelector<number>;
@@ -20,7 +18,7 @@ const NumberInput = memo<NumberInputProps>(({
 
   return (
     <div>
-      {`${value}`}
+      {value}
 
       <DecreaseNumberButton action={action} />
 

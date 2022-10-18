@@ -1,11 +1,8 @@
-import { ActionCreator } from "../Reducers/CreateRootReducer";
-import { actionTypeSymbol } from "../Utils/GetActionTypeToHalders";
 import { AppMiddleware } from "./CreateRootMiddleware";
+import { hydrateHandlerWithActionType } from "../Utils/HydrateHandlerWithActionType";
+import { ActionCreator } from "../Utils/ActionCreator";
 
-const createMiddleware = <A extends ActionCreator>(actionCreators: Array<A>, middleware: AppMiddleware<A>): AppMiddleware<A> => {
-  middleware[actionTypeSymbol] = actionCreators.map((actionCreator) => actionCreator().type);
-
-  return middleware;
-};
+const createMiddleware = <A extends ActionCreator, M extends AppMiddleware<A>>(actionCreators: Array<A>, middleware: M) =>
+  hydrateHandlerWithActionType<A, M>(actionCreators, middleware);
 
 export { createMiddleware };
